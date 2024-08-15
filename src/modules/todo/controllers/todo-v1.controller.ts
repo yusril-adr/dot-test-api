@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Inject,
   Param,
   Patch,
   Post,
@@ -11,7 +10,6 @@ import {
   Query,
   Request,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import * as wrapper from '@helpers/utils/wrapper';
 import { Response } from '@helpers/types/response.type';
@@ -21,17 +19,12 @@ import { TodoFindManyV1Dto } from '../dto/todo-find-many-v1.dto';
 import { AccessTokenGuard } from '@helpers/guards/access-token.guards';
 import { TodoCreateV1Dto } from '../dto/todo-create-v1.dto';
 import { RequestUser } from '@helpers/types/request.type';
-import { Cache, CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 import { TodoUpdatePutV1Dto } from '../dto/todo-update-put-v1.dto';
 import { TodoUpdatePatchV1Dto } from '../dto/todo-update-patch-v1.dto';
 
 @Controller({ path: 'todos', version: '1' })
-@UseInterceptors(CacheInterceptor)
 export class TodoV1Controller {
-  constructor(
-    private readonly todoUseCase: TodoV1UseCase,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
+  constructor(private readonly todoUseCase: TodoV1UseCase) {}
 
   @Post()
   @UseGuards(AccessTokenGuard)
@@ -44,7 +37,6 @@ export class TodoV1Controller {
       request.user.id,
     );
 
-    this.cacheManager.reset();
     return wrapper.response({
       data: result,
       message: 'Create To do Success',
