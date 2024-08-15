@@ -12,7 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import * as wrapper from '@helpers/utils/wrapper';
-import { Response } from '@helpers/types/response.type';
+import { Response, ResponsePagination } from '@helpers/types/response.type';
 import { Todo } from '@entities/todo.entity';
 import { TodoV1UseCase } from '../usecases/todo-v1.usecase';
 import { TodoFindManyV1Dto } from '../dto/todo-find-many-v1.dto';
@@ -32,10 +32,7 @@ export class TodoV1Controller {
     @Body() requestBody: TodoCreateV1Dto,
     @Request() request: RequestUser,
   ): Promise<Response<Todo>> {
-    const result = await this.todoUseCase.createTodo(
-      requestBody,
-      request.user.id,
-    );
+    const result = await this.todoUseCase.create(requestBody, request.user.id);
 
     return wrapper.response({
       data: result,
@@ -46,7 +43,7 @@ export class TodoV1Controller {
   @Get('')
   async findMany(
     @Query() request: TodoFindManyV1Dto,
-  ): Promise<Response<Todo[]>> {
+  ): Promise<ResponsePagination<Todo[]>> {
     const result = await this.todoUseCase.findMany(request);
 
     return wrapper.paginationResponse({

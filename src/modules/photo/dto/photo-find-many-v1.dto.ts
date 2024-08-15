@@ -1,7 +1,7 @@
-import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class TodoFindManyV1Dto {
+export class PhotoFindManyV1Dto {
   @IsNumber()
   @Type(() => Number)
   @IsOptional()
@@ -13,9 +13,4 @@ export class TodoFindManyV1Dto {
   @IsOptional()
   @Min(1)
   page: number = 1;
-
-  @IsNumber()
-  @Type(() => Number)
-  @IsOptional()
-  user_id?: number;
 }

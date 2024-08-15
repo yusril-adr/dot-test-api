@@ -28,7 +28,7 @@ export class TodoV1UseCase {
     private readonly todoService: TodoV1Service,
   ) {}
 
-  async createTodo(request: TodoCreateV1Dto, userId: number): Promise<Todo> {
+  async create(request: TodoCreateV1Dto, userId: number): Promise<Todo> {
     const user = await this.userService.findById(userId);
 
     if (!user) {
@@ -58,8 +58,8 @@ export class TodoV1UseCase {
 
     const meta: PaginationMeta = {
       total_data: count,
-      total_view: offset + result.length,
-      max_view: result.length,
+      total_view: result.length,
+      max_view: request.row,
       current_page: request.page,
       total_page: Math.ceil(count / request.row),
     };

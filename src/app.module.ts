@@ -7,6 +7,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { IpLoggerMidlleware } from '@middleware/ip-logger.middleware';
 import { UserModule } from '@modules/user/user.module';
 import { TodoModule } from '@modules/todo/todo.module';
+import { PhotoModule } from './modules/photo/photo.module';
 
 import dataSource from '@app/typeorm.config';
 
@@ -26,6 +27,7 @@ import dataSource from '@app/typeorm.config';
     }),
     UserModule,
     TodoModule,
+    PhotoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
