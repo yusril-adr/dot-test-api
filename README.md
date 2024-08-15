@@ -8,6 +8,9 @@
 
 An API for my technical Test for BackEnd Developer DOT Indonesia
 
+## Deployed Version
+[Try me](https://dot-test-api.vercel.app)
+
 ## Installation
 
 ```bash
