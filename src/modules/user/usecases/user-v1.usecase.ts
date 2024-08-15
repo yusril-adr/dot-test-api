@@ -7,7 +7,7 @@ import {
 import { User } from '@entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { UserService } from '../user.service';
+import { UserV1Service } from '../services/user-v1.service';
 import { UserRegisterV1Dto } from '../dto/user-register-v1.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserLoginV1Dto } from '../dto/user-login-v1.dto';
@@ -17,7 +17,7 @@ import { JWTPayload } from '@helpers/types/jwt-payload.type';
 export class UserV1UseCase {
   constructor(
     private readonly configService: ConfigService,
-    private readonly userService: UserService,
+    private readonly userService: UserV1Service,
   ) {}
 
   async register(request: UserRegisterV1Dto): Promise<User> {

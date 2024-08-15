@@ -1,14 +1,21 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './modules/user/user.module';
-import dataSource from '@app/typeorm.config'; // Import the DataSource
+import { CacheModule } from '@nestjs/cache-manager';
+import { IpLoggerMidlleware } from '@middleware/ip-logger.middleware';
+import { UserModule } from '@modules/user/user.module';
+import { TodoModule } from '@modules/todo/todo.module';
+
+import dataSource from '@app/typeorm.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    CacheModule.register({
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
@@ -18,8 +25,13 @@ import dataSource from '@app/typeorm.config'; // Import the DataSource
       }),
     }),
     UserModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IpLoggerMidlleware).forRoutes('*');
+  }
+}

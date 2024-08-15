@@ -3,12 +3,12 @@ import {
   Seeder,
   // SeederFactoryManager
 } from 'typeorm-extension';
-import { User } from '@entities/user.entity';
 import axios from 'axios';
 import * as bcrypt from 'bcrypt';
 import { config } from 'dotenv';
 import { ConfigService } from '@nestjs/config';
 
+import { User } from '@entities/user.entity';
 import { CONFIG } from '@helpers/constants/config';
 
 // Load .env file

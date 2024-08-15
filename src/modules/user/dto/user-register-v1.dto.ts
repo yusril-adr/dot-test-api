@@ -1,6 +1,7 @@
 import { Match } from '@helpers/utils/decorators';
 import {
   IsEmail,
+  IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
   IsString,
@@ -11,13 +12,16 @@ import {
 
 export class UserRegisterV1Dto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsString()
+  @IsNotEmpty()
   username: string;
 
   @IsString()
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @IsString()
@@ -33,6 +37,7 @@ export class UserRegisterV1Dto {
   @IsString()
   @MinLength(8)
   @MaxLength(20)
+  @IsNotEmpty()
   password: string;
 
   @IsString()

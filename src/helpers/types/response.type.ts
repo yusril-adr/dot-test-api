@@ -7,4 +7,6 @@ export type Response<Data = any> = {
   message: string;
 };
 
-export type ResponsePagination<T> = Response<T> & PaginationMeta;
+export type ResponsePagination<T> = Response<T> & {
+  meta: PaginationMeta;
+};

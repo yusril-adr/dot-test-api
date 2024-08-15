@@ -10,8 +10,13 @@ export const data = <T>(data: T): WrapperData<T> => ({
   data,
 });
 
-export type WrapperPaginationData<T> = WrapperData<T> & PaginationMeta;
-export const paginationData = <T>(data: T, meta: PaginationMeta) => ({
+export type WrapperPaginationData<T> = WrapperData<T> & {
+  meta: PaginationMeta;
+};
+export const paginationData = <T>(
+  data: T,
+  meta: PaginationMeta,
+): WrapperPaginationData<T> => ({
   error: null,
   data,
   meta,
