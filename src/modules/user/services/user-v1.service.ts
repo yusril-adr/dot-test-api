@@ -30,8 +30,8 @@ export class UserV1Service {
     return await this.userRepository.findOne({ where: params });
   }
 
-  async findByUserName(name: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { name } });
+  async findByUserName(username: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { username } });
   }
 
   async findByEmail(email: string): Promise<User> {

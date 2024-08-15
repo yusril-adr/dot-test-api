@@ -33,13 +33,18 @@ export class UserV1UseCase {
       throw new ConflictException(`Email already exist`);
     }
 
-    return await this.userService.create({
+    const createdUser = await this.userService.create({
       ...request,
       password: bcrypt.hashSync(
         request.password,
         parseInt(this.configService.get('SALT_ROUND')),
       ),
     });
+
+    return {
+      ...createdUser,
+      password: undefined,
+    };
   }
 
   async login(request: UserLoginV1Dto): Promise<{ access_token: string }> {
