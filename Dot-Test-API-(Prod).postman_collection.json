@@ -1,0 +1,713 @@
+{
+	"info": {
+		"_postman_id": "a7b162c3-8746-4263-b26e-348b4e145840",
+		"name": "Dot Test API (Prod)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11047781"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "User Test 2",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user-test2",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "usertest2@gmail.com",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "12345678",
+									"description": "required",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response should be okay to process and use accessToken\", function () {",
+									"    if(pm.response.code === 200) {",
+									"        pm.collectionVariables.set(\"ACCESS_TOKEN\", pm.response.json().data.access_token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "identifier",
+									"value": "usertest2@gmail.com",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"description": "required",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login By Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/login/token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "todos",
+			"item": [
+				{
+					"name": "Create Todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "some title",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "completed",
+									"value": "true",
+									"description": "required (true | false)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/todos",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todo List",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/todos?page=1&row=10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"todos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "default: 1"
+								},
+								{
+									"key": "row",
+									"value": "10",
+									"description": "default: 10"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"description": "optional",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todo By Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/todos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"todos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "206"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Put Todo By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "some title - updated",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "completed",
+									"value": "true",
+									"description": "required (true | false)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/todos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"todos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "220"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patch Todo By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "some title - updated 2",
+									"type": "text"
+								},
+								{
+									"key": "completed",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/todos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"todos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "220"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Todo By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/todos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"todos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "220"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "photos (axios)",
+			"item": [
+				{
+					"name": "Create Photo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "some title",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "https://google.com",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "thumbnailUrl",
+									"value": "https://google.com",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "albumId",
+									"value": "3",
+									"description": "required",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/photos",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Photo List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/photos?page=1&row=10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"photos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "default: 1"
+								},
+								{
+									"key": "row",
+									"value": "10",
+									"description": "default: 10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Photo By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/photos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"photos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "206"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Put Photo By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "some title",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "https://google.com",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "thumbnailUrl",
+									"value": "https://google.com",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "albumId",
+									"value": "3",
+									"description": "required",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/photos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"photos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "220"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patch Photo By Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "some title",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "https://google.com",
+									"type": "text"
+								},
+								{
+									"key": "thumbnailUrl",
+									"value": "https://google.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "albumId",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/photos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"photos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "220"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patch Photo By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/photos/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"photos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "220"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://dot-test-api.vercel.app",
+			"type": "string"
+		},
+		{
+			"key": "USER_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "USER_EMAIL",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
