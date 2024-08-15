@@ -24,7 +24,10 @@
     "migration:create": "npm run typeorm:cli -- migration:create -d src/app/typeorm.config.ts",
     "migration:run": "npm run typeorm:cli -- migration:run -d src/app/typeorm.config.ts",
     "migration:revert": "npm run typeorm:cli -- migration:revert -d src/app/typeorm.config.ts",
-    "seed": "ts-node -r tsconfig-paths/register ./src/seeds.ts"
+    "seed": "ts-node -r tsconfig-paths/register ./src/seeds.ts",
+    "vercel:deploy": "vercel --prod",
+    "vercel:stg": "vercel",
+    "vercel:dev": "vercel dev"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.2.2",
