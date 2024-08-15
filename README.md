@@ -44,7 +44,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-
+## Postman For Testing (Deployed)
+[Postman File JSON](Dot-Test-API-(Prod).postman_collection.json)
 
 ## License
 
